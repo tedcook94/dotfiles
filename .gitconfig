@@ -1,0 +1,19 @@
+[user]
+	name = Ted Cook
+	email = 33679293+tedcook94@users.noreply.github.com
+[core]
+	editor = nvim
+	pager = delta
+[init]
+	defaultBranch = main
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true    # use n and N to move between diff sections
+	side-by-side = true
+[merge]
+	conflictstyle = diff3
+[diff]
+	colorMoved = default
+[url "ssh://git@github.com"]
+	insteadOf = https://github.com
