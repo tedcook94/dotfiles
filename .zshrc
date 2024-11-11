@@ -1,3 +1,14 @@
+############### start variables ###############
+# use gcr-ssh-agent for ssh keyring management
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
+
+# set bat theme
+export BAT_THEME=base16-256
+
+# path
+export PATH=$PATH:~/bin
+############### end variables ###############
+
 ############### start history ###############
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
@@ -91,17 +102,6 @@ bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 ############### end keybindings ###############
-
-############### start variables ###############
-# use gcr-ssh-agent for ssh keyring management
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
-
-# set bat theme
-export BAT_THEME=base16-256
-
-# path
-export PATH=$PATH:~/bin
-############### end variables ###############
 
 ############### start aliases ###############
 # add snippets
