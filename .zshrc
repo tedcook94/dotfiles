@@ -98,6 +98,9 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
 
 # set bat theme
 export BAT_THEME=base16-256
+
+# path
+export PATH=$PATH:~/bin
 ############### end variables ###############
 
 ############### start aliases ###############
