@@ -15,5 +15,3 @@
 	conflictstyle = diff3
 [diff]
 	colorMoved = default
-[url "ssh://git@github.com"]
-	insteadOf = https://github.com
