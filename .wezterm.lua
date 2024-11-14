@@ -6,7 +6,7 @@ local config = wezterm.config_builder()
 config.default_prog = { '/usr/bin/zsh' }
 
 -- Appearance settings
-config.color_scheme = 'GitHub Dark'
+config.color_scheme = 'nord'
 config.font_size = 10
 config.enable_tab_bar = false
 
