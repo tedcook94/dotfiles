@@ -115,7 +115,7 @@ zinit snippet OMZP::command-not-found
 alias c="clear"
 
 # eza
-alias ls="eza --color=always --icons=always --long --git --no-time --no-user --no-permissions"
+alias ls="eza --color=always --icons=always --long --git"
 alias tree="ls --tree"
 
 # bat
