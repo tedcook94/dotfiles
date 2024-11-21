@@ -121,6 +121,10 @@ alias tree="ls --tree"
 # bat
 alias cat="bat"
 
+# neovim
+alias vim="nvim"
+alias neovim="nvim"
+
 # ansible
 alias setup-servers="ansible-playbook /run/media/ted/Storage/Seafile/Linux\ Scripts/ansible/playbooks/setup.yaml -i /run/media/ted/Storage/Seafile/Linux\ Scripts/ansible/hosts --ask-become-pass"
 alias update-servers="ansible-playbook /run/media/ted/Storage/Seafile/Linux\ Scripts/ansible/playbooks/update.yaml -i /run/media/ted/Storage/Seafile/Linux\ Scripts/ansible/hosts --ask-become-pass --ask-vault-pass"
