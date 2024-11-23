@@ -6,7 +6,7 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
 export BAT_THEME=base16-256
 
 # path
-export PATH=$PATH:~/bin:~/.local/bin
+export PATH=$PATH:~/bin:~/.local/bin:/opt/homebrew/bin:/opt/homebrew/sbin
 ############### end variables ###############
 
 ############### start history ###############
