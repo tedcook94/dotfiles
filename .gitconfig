@@ -15,3 +15,5 @@
 	conflictstyle = diff3
 [diff]
 	colorMoved = default
+[includeIf "hasconfig:remote.*.url:git@github.com:flocksafety/**"]
+	path=.gitconfig-flock
