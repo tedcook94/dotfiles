@@ -25,8 +25,8 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
 # Download zinit if needed
 if [ ! -d "$ZINIT_HOME" ]; then
-	mkdir -p "$(dirname $ZINIT_HOME)"
-	git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+  mkdir -p "$(dirname $ZINIT_HOME)"
+  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
 # Source zinit
@@ -59,12 +59,12 @@ eval "$(thefuck --alias fk)"
 
 # load apps installed via homebrew (macOS only)
 if [ -d "/opt/homebrew" ]; then
-	eval "$(/opt/homebrew/bin/brew shellenv)"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # load oh-my-posh if not using default Mac terminal
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-	eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/base.yaml)"
+  eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/base.yaml)"
 fi
 
 # fzf
@@ -92,6 +92,11 @@ _fzf_comprun() {
     *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
   esac
 }
+
+# asdf
+if [ -d "$HOME/.asdf" ]; then
+  . "$HOME/.asdf/asdf.sh"
+fi
 ############### end shell integrations ###############
 
 ############### start keybindings ###############
