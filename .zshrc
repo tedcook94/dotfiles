@@ -6,7 +6,7 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
 export BAT_THEME=base16-256
 
 # path
-export PATH=$PATH:~/bin:~/.local/bin:/opt/homebrew/bin:/opt/homebrew/sbin
+export PATH=$PATH:~/bin:~/.local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Applications/Postgres.app/Contents/Versions/16/bin
 ############### end variables ###############
 
 ############### start history ###############
@@ -60,6 +60,7 @@ eval "$(thefuck --alias fk)"
 # load apps installed via homebrew (macOS only)
 if [ -d "/opt/homebrew" ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
+  source $(brew --prefix nvm)/nvm.sh
 fi
 
 # load oh-my-posh if not using default Mac terminal
