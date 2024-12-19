@@ -29,7 +29,3 @@ keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' 
 keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-
--- Add new line without entering insert mode
-keymap.set('n', '<CR>', 'o<Esc>', { desc = 'Add new line without entering insert mode' })
-keymap.set('n', '<S-CR>', 'O<Esc>', { desc = 'Add new line above without entering insert mode' })
