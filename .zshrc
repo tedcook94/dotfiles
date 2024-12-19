@@ -61,6 +61,10 @@ eval "$(thefuck --alias fk)"
 if [ -d "/opt/homebrew" ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
   source $(brew --prefix nvm)/nvm.sh
+  
+  export PYENV_ROOT="$HOME/.pyenv"
+  [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
 fi
 
 # load oh-my-posh if not using default Mac terminal
