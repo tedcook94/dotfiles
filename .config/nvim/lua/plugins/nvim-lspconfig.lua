@@ -124,6 +124,7 @@ return {
       gopls = {},
       ts_ls = {},
       zls = {},
+      rust_analyzer = {},
       lua_ls = {
         settings = {
           Lua = {
