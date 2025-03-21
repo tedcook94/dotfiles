@@ -1,6 +1,7 @@
 [user]
 	name = Ted Cook
 	email = 33679293+tedcook94@users.noreply.github.com
+	signingkey = 8A8CD9B2
 [core]
 	editor = nvim
 	pager = delta
@@ -21,3 +22,7 @@
 	path=.gitconfig-flock
 [url "ssh://git@github.com/flocksafety"]
 	insteadOf = https://github.com/flocksafety
+[commit]
+	gpgSign = true
+[tag]
+	gpgSign = true

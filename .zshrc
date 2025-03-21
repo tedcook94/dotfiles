@@ -65,6 +65,8 @@ if [ -d "/opt/homebrew" ]; then
   export PYENV_ROOT="$HOME/.pyenv"
   [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init -)"
+  export GPG_TTY=$(tty)
+  gpgconf --launch gpg-agent
 fi
 
 # load oh-my-posh if not using default Mac terminal
