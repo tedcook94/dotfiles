@@ -5,6 +5,9 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
 # set bat theme
 export BAT_THEME=base16-256
 
+# set editor
+export EDITOR=nvim
+
 # path
 export PATH=$PATH:~/bin:~/.local/bin:~/go/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Applications/Postgres.app/Contents/Versions/16/bin
 ############### end variables ###############
@@ -65,6 +68,7 @@ if [ -d "/opt/homebrew" ]; then
   export PYENV_ROOT="$HOME/.pyenv"
   [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init -)"
+
   export GPG_TTY=$(tty)
   gpgconf --launch gpg-agent
 fi
@@ -143,4 +147,7 @@ alias update-servers="ansible-playbook /run/media/ted/Storage/Seafile/Linux\ Scr
 
 # yay
 alias remove-orphaned="yay -Qtdq | yay -Rns -"
+
+# tmuxinator
+alias mux="tmuxinator"
 ############### end aliases ###############
