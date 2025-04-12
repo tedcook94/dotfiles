@@ -2,3 +2,7 @@
 	email = ted.cook@flocksafety.com
 [url "ssh://git@github.com"]
 	insteadOf = https://github.com
+[commit]
+	gpgSign = true
+[tag]
+	gpgSign = true

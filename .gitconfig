@@ -22,7 +22,3 @@
 	path=.gitconfig-flock
 [url "ssh://git@github.com/flocksafety"]
 	insteadOf = https://github.com/flocksafety
-[commit]
-	gpgSign = true
-[tag]
-	gpgSign = true
