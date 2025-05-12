@@ -20,5 +20,7 @@
 
 [includeIf "hasconfig:remote.*.url:git@github.com:flocksafety/**"]
 	path=.gitconfig-flock
+[includeIf "gitdir:~/repos/work/flock/"]
+	path=.gitconfig-flock
 [url "ssh://git@github.com/flocksafety"]
 	insteadOf = https://github.com/flocksafety

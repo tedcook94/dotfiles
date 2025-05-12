@@ -71,6 +71,9 @@ if [ -d "/opt/homebrew" ]; then
 
   export GPG_TTY=$(tty)
   gpgconf --launch gpg-agent
+# load apps installed via yay (linux only)
+else
+  source /usr/share/nvm/init-nvm.sh
 fi
 
 # load oh-my-posh if not using default Mac terminal
