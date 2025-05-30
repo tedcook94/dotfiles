@@ -9,7 +9,7 @@ export BAT_THEME=base16-256
 export EDITOR=nvim
 
 # path
-export PATH=$PATH:~/bin:~/.local/bin:~/go/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Applications/Postgres.app/Contents/Versions/16/bin
+export PATH=$PATH:~/bin:~/.local/bin:~/go/bin:~/.asdf/shims:/opt/homebrew/bin:/opt/homebrew/sbin:/Applications/Postgres.app/Contents/Versions/16/bin
 ############### end variables ###############
 
 ############### start history ###############
@@ -107,10 +107,6 @@ _fzf_comprun() {
   esac
 }
 
-# asdf
-if [ -d "$HOME/.asdf" ]; then
-  . "$HOME/.asdf/asdf.sh"
-fi
 ############### end shell integrations ###############
 
 ############### start keybindings ###############
