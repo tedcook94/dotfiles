@@ -9,6 +9,7 @@ vim.g.have_nerd_font = true
 
 -- Load options, keymaps and autocommands
 require 'config.options'
+require 'config.diagnostics'
 require 'config.keymaps'
 require 'config.autocommands'
 
