@@ -74,6 +74,7 @@ if [ -d "/opt/homebrew" ]; then
 # load apps installed via yay (linux only)
 else
   source /usr/share/nvm/init-nvm.sh
+  nvm use default --silent
 fi
 
 # load oh-my-posh if not using default Mac terminal
