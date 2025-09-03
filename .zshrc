@@ -152,4 +152,8 @@ alias remove-orphaned="yay -Qtdq | yay -Rns -"
 
 # tmuxinator
 alias mux="tmuxinator"
+
+# aws
+alias aws-login='aws sso login --sso-session regular-cloud && eval $(aws configure export-credentials --profile regular --format env)'
+alias aws-login-gov='aws sso login --sso-session gov-cloud && eval $(aws configure export-credentials --profile gov --format env)'
 ############### end aliases ###############
