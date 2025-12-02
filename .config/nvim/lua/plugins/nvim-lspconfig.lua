@@ -134,6 +134,7 @@ return {
         'zls',
         'rust_analyzer',
         'lua_ls',
+        'pyright',
       },
       automatic_enable = true,
     }
