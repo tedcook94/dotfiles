@@ -1,61 +1,59 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
 
-version: 3
-final_space: true
-console_title_template: '{{ .Shell }} in {{ .Folder }}'
-blocks:
-- type: 'prompt'
-  alignment: 'left'
-  newline: true
-  segments:
-    - type: 'session'
-      style: 'plain'
-      background: 'transparent'
-      foreground: 'blue'
-      template: '{{ if .SSHSession }}  {{ .UserName }}@{{ .HostName }}{{ end }}'
-    - type: 'path'
-      style: 'plain'
-      background: 'transparent'
-      foreground: 'blue'
-      properties:
-        style: 'full'
-    - type: 'git'
-      style: 'plain'
-      foreground: 'p:grey'
-      background: 'transparent'
-      template: ' {{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }} <cyan>{{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }}</>'
-      properties:
-        branch_icon: ''
-        commit_icon: '@'
-        fetch_status: true
-- type: 'rprompt'
-  overflow: 'hidden'
-  segments:
-    - type: 'executiontime'
-      style: 'plain'
-      foreground: 'yellow'
-      background: 'transparent'
-      template: '{{ .FormattedMs }}'
-      properties:
-        threshold: 5000
-- type: 'prompt'
-  alignment: 'left'
-  newline: true
-  segments:
-    - type: 'text'
-      style: 'plain'
-      foreground_templates: 
+secondary_prompt:
+    template: '❯❯ '
+    foreground: magenta
+    background: transparent
+transient_prompt:
+    template: '❯ '
+    background: transparent
+    foreground_templates:
         - '{{ if gt .Code 0 }}red{{ end }}'
         - '{{ if eq .Code 0 }}magenta{{ end }}'
-      background: 'transparent'
-      template: '❯'
-transient_prompt:
-  foreground_templates:
-    - '{{ if gt .Code 0 }}red{{ end }}'
-    - '{{ if eq .Code 0 }}magenta{{ end }}'
-  background: 'transparent'
-  template: '❯ '
-secondary_prompt:
-  foreground: 'magenta'
-  background: 'transparent'
-  template: '❯❯ '
+console_title_template: '{{ .Shell }} in {{ .Folder }}'
+blocks:
+    - type: prompt
+      alignment: left
+      segments:
+        - template: '{{ if .SSHSession }}  {{ .UserName }}@{{ .HostName }}{{ end }}'
+          foreground: blue
+          background: transparent
+          type: session
+          style: plain
+        - foreground: blue
+          background: transparent
+          type: path
+          style: plain
+          properties:
+            style: full
+        - template: ' {{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }} <cyan>{{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }}</>'
+          foreground: p:grey
+          background: transparent
+          type: git
+          style: plain
+          properties:
+            branch_icon: ''
+            commit_icon: '@'
+            fetch_status: true
+      newline: true
+    - type: rprompt
+      overflow: hidden
+      segments:
+        - template: '{{ .FormattedMs }}'
+          foreground: yellow
+          background: transparent
+          type: executiontime
+          style: plain
+    - type: prompt
+      alignment: left
+      segments:
+        - template: ❯
+          background: transparent
+          type: text
+          style: plain
+          foreground_templates:
+            - '{{ if gt .Code 0 }}red{{ end }}'
+            - '{{ if eq .Code 0 }}magenta{{ end }}'
+      newline: true
+version: 4
+final_space: true
