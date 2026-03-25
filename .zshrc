@@ -156,6 +156,55 @@ alias remove-orphaned="yay -Qtdq | yay -Rns -"
 # tmuxinator
 alias mux="tmuxinator"
 
+# worktree + tmux project layout
+wtt() {
+  # must be inside tmux
+  if [[ -z "$TMUX" ]]; then
+    echo "wtt: must be run inside tmux" >&2
+    return 1
+  fi
+
+  # try wt switch; if branch doesn't exist, retry with --create
+  if ! wt switch "$@" 2>/dev/null; then
+    wt switch --create "$@" || return $?
+  fi
+
+  # the worktree path is now the current directory
+  local wt_path="$PWD"
+
+  # derive repo name and branch
+  local repo_root repo_name branch
+  repo_root=$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
+  repo_root="${repo_root%/.git}"
+  repo_name="${repo_root:t}"
+  branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+
+  if [[ -z "$branch" || -z "$wt_path" ]]; then
+    echo "wtt: could not determine branch or worktree path" >&2
+    return 1
+  fi
+
+  # sanitize branch name and rename current window
+  local sanitized_branch="${branch//\//-}"
+  sanitized_branch="${sanitized_branch//\\/-}"
+  tmux rename-window "${repo_name}/${sanitized_branch}"
+
+  # split current window into 3 vertical panes (39% / 34% / 27%)
+  # current pane becomes pane 1 (nvim), splits create panes 2 and 3
+  local wid
+  wid=$(tmux display-message -p '#{window_id}')
+  tmux split-window -h -t "$wid" -c "$wt_path" -p 61
+  tmux split-window -h -t "$wid" -c "$wt_path" -p 44
+
+  # launch programs: pane 1 = nvim, pane 2 = opencode, pane 3 = lazygit
+  tmux send-keys -t "$wid.1" "nvim" Enter
+  tmux send-keys -t "$wid.2" "opencode" Enter
+  tmux send-keys -t "$wid.3" "lazygit" Enter
+
+  # focus pane 2 (opencode)
+  tmux select-pane -t "$wid.2"
+}
+
 # aws
 alias aws-login='aws sso login --sso-session regular-cloud && eval $(aws configure export-credentials --profile regular --format env)'
 alias aws-login-gov='aws sso login --sso-session gov-cloud && eval $(aws configure export-credentials --profile gov --format env)'
