@@ -4,5 +4,10 @@ shell-integration = detect
 theme = Nord
 font-size = 10
 
+# Allow OSC52 clipboard access
+copy-on-select = clipboard
+clipboard-read = allow
+clipboard-write = allow
+
 # Disable "Copied to clipboard" notification
 app-notifications = no-clipboard-copy
