@@ -110,6 +110,9 @@ _fzf_comprun() {
   esac
 }
 
+# worktrunk
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+
 ############### end shell integrations ###############
 
 ############### start keybindings ###############
