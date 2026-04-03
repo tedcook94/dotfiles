@@ -156,41 +156,19 @@ alias remove-orphaned="yay -Qtdq | yay -Rns -"
 # tmuxinator
 alias mux="tmuxinator"
 
-# worktree + tmux project layout
-wtt() {
-  # must be inside tmux
+# tmux project layout (nvim | opencode | lazygit) in current directory
+tt() {
   if [[ -z "$TMUX" ]]; then
-    echo "wtt: must be run inside tmux" >&2
+    echo "tt: must be run inside tmux" >&2
     return 1
   fi
 
-  # try wt switch; if branch doesn't exist, retry with --create
-  if ! wt switch "$@" 2>/dev/null; then
-    wt switch --create "$@" || return $?
-  fi
-
-  # the worktree path is now the current directory
   local wt_path="$PWD"
 
-  # derive repo name and branch
-  local repo_root repo_name branch
-  repo_root=$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
-  repo_root="${repo_root%/.git}"
-  repo_name="${repo_root:t}"
-  branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+  # rename window to current directory name
+  tmux rename-window "${wt_path:t}"
 
-  if [[ -z "$branch" || -z "$wt_path" ]]; then
-    echo "wtt: could not determine branch or worktree path" >&2
-    return 1
-  fi
-
-  # sanitize branch name and rename current window
-  local sanitized_branch="${branch//\//-}"
-  sanitized_branch="${sanitized_branch//\\/-}"
-  tmux rename-window "${repo_name}/${sanitized_branch}"
-
-  # split current window into 3 vertical panes (39% / 34% / 27%)
-  # current pane becomes pane 1 (nvim), splits create panes 2 and 3
+  # split into 3 vertical panes (39% / 34% / 27%)
   local wid
   wid=$(tmux display-message -p '#{window_id}')
   tmux split-window -h -t "$wid" -c "$wt_path" -p 61
@@ -203,6 +181,32 @@ wtt() {
 
   # focus pane 2 (opencode)
   tmux select-pane -t "$wid.2"
+}
+
+# worktree + tmux project layout
+wtt() {
+  if [[ -z "$TMUX" ]]; then
+    echo "wtt: must be run inside tmux" >&2
+    return 1
+  fi
+
+  # try wt switch; if branch doesn't exist, retry with --create
+  if ! wt switch "$@" 2>/dev/null; then
+    wt switch --create "$@" || return $?
+  fi
+
+  # set up panes via tt
+  tt
+
+  # override window name with repo/branch
+  local repo_root repo_name branch sanitized_branch
+  repo_root=$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
+  repo_root="${repo_root%/.git}"
+  repo_name="${repo_root:t}"
+  branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+  sanitized_branch="${branch//\//-}"
+  sanitized_branch="${sanitized_branch//\\/-}"
+  tmux rename-window "${repo_name}/${sanitized_branch}"
 }
 
 # aws
