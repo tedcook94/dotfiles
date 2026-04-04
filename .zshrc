@@ -183,6 +183,50 @@ tt() {
   tmux select-pane -t "$wid.2"
 }
 
+# tmux project session (nvim+lazygit | opencode | shell)
+tp() {
+  local project_dir="${1:-$PWD}"
+  project_dir="${project_dir:A}"
+  local session_name="${project_dir:t}"
+
+  # if session already exists, attach to it
+  if tmux has-session -t "=$session_name" 2>/dev/null; then
+    if [[ -n "$TMUX" ]]; then
+      tmux switch-client -t "=$session_name"
+    else
+      tmux attach-session -t "=$session_name"
+    fi
+    return 0
+  fi
+
+  # window 1: nvim | lazygit (50/50 vertical split)
+  tmux new-session -d -s "$session_name" -c "$project_dir"
+  local wid1
+  wid1=$(tmux list-windows -t "=$session_name" -F '#{window_id}' | head -1)
+  tmux split-window -h -t "$wid1" -c "$project_dir" -p 50
+  tmux send-keys -t "$wid1.1" "nvim" Enter
+  tmux send-keys -t "$wid1.2" "lazygit" Enter
+  tmux select-pane -t "$wid1.1"
+
+  # window 2: opencode
+  local wid2
+  wid2=$(tmux new-window -t "=$session_name" -c "$project_dir" -P -F '#{window_id}')
+  tmux send-keys -t "$wid2" "opencode" Enter
+
+  # window 3: shell
+  tmux new-window -t "=$session_name" -c "$project_dir"
+
+  # select window 1 (code)
+  tmux select-window -t "$wid1"
+
+  # attach to session
+  if [[ -n "$TMUX" ]]; then
+    tmux switch-client -t "=$session_name"
+  else
+    tmux attach-session -t "=$session_name"
+  fi
+}
+
 # worktree + tmux project layout
 wtt() {
   if [[ -z "$TMUX" ]]; then
