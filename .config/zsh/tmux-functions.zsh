@@ -17,6 +17,13 @@ _resolve_directory() {
   fi
 }
 
+# ensure a default tmux session exists at $HOME so new terminals don't land in a project directory
+_ensure_default_session() {
+  if ! tmux has-session -t "=default" 2>/dev/null; then
+    tmux new-session -d -s default -c "$HOME"
+  fi
+}
+
 # tmux project layout (nvim | opencode | lazygit) in current window
 tt() {
   local wt_path
@@ -44,7 +51,8 @@ tt() {
     # focus pane 2 (opencode)
     tmux select-pane -t "$wid.2"
   else
-    # outside tmux: create a new session with the 3-pane layout
+    # outside tmux: ensure a default session exists, then create project session
+    _ensure_default_session
     tmux new-session -d -s "$session_name" -c "$wt_path"
     local wid
     wid=$(tmux list-windows -t "=$session_name" -F '#{window_id}' | head -1)
@@ -78,6 +86,9 @@ tp() {
   fi
 
   # window 1: nvim | lazygit (50/50 vertical split)
+  if [[ -z "$TMUX" ]]; then
+    _ensure_default_session
+  fi
   tmux new-session -d -s "$session_name" -c "$project_dir"
   local wid1
   wid1=$(tmux list-windows -t "=$session_name" -F '#{window_id}' | head -1)
