@@ -1,19 +1,26 @@
-# tmux project layout (nvim | opencode | lazygit) in current window
-tt() {
-  # resolve target directory: argument > zoxide query > current directory
-  local wt_path
+# resolve a directory from an argument using zoxide, or prompt interactively
+_resolve_directory() {
+  local func_name="$1"
+  shift
+
   if [[ -n "$1" ]]; then
     if [[ -d "$1" ]]; then
-      wt_path="${1:A}"
+      echo "${1:A}"
     else
-      wt_path=$(zoxide query "$1" 2>/dev/null) || {
-        echo "tt: no directory found for '$1'" >&2
+      zoxide query -- "$@" 2>/dev/null || {
+        echo "${func_name}: no directory found for '$*'" >&2
         return 1
       }
     fi
   else
-    wt_path="$PWD"
+    zoxide query --interactive 2>/dev/null || return 1
   fi
+}
+
+# tmux project layout (nvim | opencode | lazygit) in current window
+tt() {
+  local wt_path
+  wt_path=$(_resolve_directory tt "$@") || return $?
 
   local session_name="${wt_path:t}"
 
@@ -55,20 +62,8 @@ tt() {
 
 # tmux project session (nvim+lazygit | opencode | shell)
 tp() {
-  # resolve target directory: argument > zoxide query > current directory
   local project_dir
-  if [[ -n "$1" ]]; then
-    if [[ -d "$1" ]]; then
-      project_dir="${1:A}"
-    else
-      project_dir=$(zoxide query "$1" 2>/dev/null) || {
-        echo "tp: no directory found for '$1'" >&2
-        return 1
-      }
-    fi
-  else
-    project_dir="$PWD"
-  fi
+  project_dir=$(_resolve_directory tp "$@") || return $?
 
   local session_name="${project_dir:t}"
 
