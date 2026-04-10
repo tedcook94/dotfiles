@@ -1,10 +1,15 @@
 {
-  "$schema": "https://raw.githubusercontent.com/Opencode-DCP/opencode-dynamic-context-pruning/master/dcp.schema.json",
-  "enabled": true,
-  "compress": {
-    "mode": "range",
-    "permission": "allow",
-    "maxContextLimit": 100000,
-    "minContextLimit": 50000
-  }
+    "$schema": "https://raw.githubusercontent.com/Opencode-DCP/opencode-dynamic-context-pruning/master/dcp.schema.json",
+    "enabled": true,
+    "compress": {
+        "mode": "range",
+        "permission": "allow",
+        // Raise both limits so nudges kick in later
+        "minContextLimit": 80000,
+        "maxContextLimit": 150000,
+        // Nudge less frequently when above max
+        "nudgeFrequency": 10,
+        // Raise iteration threshold before reminders start
+        "iterationNudgeThreshold": 25
+    }
 }
