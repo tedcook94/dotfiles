@@ -56,6 +56,7 @@ zinit light zsh-users/zsh-autosuggestions
 ############### end plugins ###############
 
 ############### start shell integrations ###############
+eval "$(mise activate zsh)"
 eval "$(direnv hook zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(thefuck --alias fk)"
