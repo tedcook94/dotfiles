@@ -3,11 +3,11 @@ return {
   cmd = 'Octo',
   dependencies = {
     'nvim-lua/plenary.nvim',
-    'nvim-telescope/telescope.nvim',
+    'folke/snacks.nvim',
     'nvim-tree/nvim-web-devicons',
   },
   opts = {
-    picker = 'telescope',
+    picker = 'snacks',
     enable_builtin = true,
   },
 }
