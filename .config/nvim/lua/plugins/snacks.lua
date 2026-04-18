@@ -64,7 +64,19 @@ return {
     { '<leader>sn', function() Snacks.picker.files({ cwd = vim.fn.stdpath('config') }) end, desc = '[S]earch [N]eovim files' },
 
     -- Explorer (migrated from neo-tree.nvim)
-    { '\\', function() Snacks.explorer() end, desc = 'Explorer' },
+    { '\\', function()
+      for _, win in ipairs(vim.api.nvim_list_wins()) do
+        if vim.bo[vim.api.nvim_win_get_buf(win)].filetype == 'snacks_picker_list' then
+          if vim.api.nvim_get_current_win() == win then
+            Snacks.explorer()
+          else
+            vim.api.nvim_set_current_win(win)
+          end
+          return
+        end
+      end
+      Snacks.explorer()
+    end, desc = 'Explorer' },
 
     -- Lazygit
     { '<leader>gg', function() Snacks.lazygit() end, desc = '[G]it lazy[g]it' },
