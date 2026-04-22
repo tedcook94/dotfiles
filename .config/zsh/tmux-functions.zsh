@@ -68,7 +68,7 @@ tt() {
   fi
 }
 
-# tmux project session (nvim+lazygit | opencode | shell)
+# tmux project session (nvim | opencode | shell)
 tp() {
   local project_dir
   project_dir=$(_resolve_directory tp "$@") || return $?
@@ -85,7 +85,7 @@ tp() {
     return 0
   fi
 
-  # window 1: nvim | lazygit (50/50 vertical split)
+  # window 1: nvim | opencode (50/50 vertical split)
   if [[ -z "$TMUX" ]]; then
     _ensure_default_session
   fi
@@ -94,15 +94,10 @@ tp() {
   wid1=$(tmux list-windows -t "=$session_name" -F '#{window_id}' | head -1)
   tmux split-window -h -t "$wid1" -c "$project_dir" -p 50
   tmux send-keys -t "$wid1.1" "nvim" Enter
-  tmux send-keys -t "$wid1.2" "lazygit" Enter
+  tmux send-keys -t "$wid1.2" "opencode" Enter
   tmux select-pane -t "$wid1.1"
 
-  # window 2: opencode
-  local wid2
-  wid2=$(tmux new-window -t "=$session_name" -c "$project_dir" -P -F '#{window_id}')
-  tmux send-keys -t "$wid2" "opencode" Enter
-
-  # window 3: shell
+  # window 2: shell
   tmux new-window -t "=$session_name" -c "$project_dir"
 
   # select window 1 (code)
