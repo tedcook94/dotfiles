@@ -96,8 +96,5 @@ return {
 
     -- Notifications
     { '<leader>un', function() Snacks.notifier.hide() end, desc = 'Dismiss notifications' },
-
-    -- Zen
-    { '<leader>z', function() Snacks.zen() end, desc = '[Z]en mode' },
   },
 }
