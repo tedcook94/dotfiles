@@ -28,6 +28,17 @@ return { -- Highlight, edit, and navigate code
       return false
     end
 
+    local available_cache ---@type table<string, true>?
+    local function is_available(lang)
+      if not available_cache then
+        available_cache = {}
+        for _, l in ipairs(nts.get_available()) do
+          available_cache[l] = true
+        end
+      end
+      return available_cache[lang] == true
+    end
+
     -- Used when parser+queries are already available at FileType time.
     local function start_buf(buf, lang)
       if not vim.api.nvim_buf_is_valid(buf) then return end
@@ -57,6 +68,7 @@ return { -- Highlight, edit, and navigate code
         if ft == '' then return end
         local lang = vim.treesitter.language.get_lang(ft) or ft
         if failed[lang] then return end
+        if not is_available(lang) then return end
 
         -- Note: `vim.treesitter.language.add(lang)` returns true on `main`
         -- branch even when the parser isn't actually installed (setup()
