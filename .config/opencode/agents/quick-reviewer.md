@@ -1,7 +1,6 @@
 ---
 description: Fast automated code review. Returns structured feedback on a diff.
 mode: subagent
-model: github-copilot/gpt-5.4
 temperature: 0.1
 permission:
   edit: deny

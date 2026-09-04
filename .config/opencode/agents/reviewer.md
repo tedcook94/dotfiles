@@ -1,7 +1,6 @@
 ---
 description: Reviews code changes for bugs, design issues, and improvements. Switch to this agent with Tab for interactive review sessions.
 mode: primary
-model: github-copilot/gpt-5.4
 temperature: 0.1
 permission:
   edit: deny
