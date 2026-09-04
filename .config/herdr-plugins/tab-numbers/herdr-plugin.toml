@@ -1,0 +1,41 @@
+id = "local.tab-numbers"
+name = "Tab Numbers"
+version = "0.1.0"
+min_herdr_version = "0.7.0"
+description = "Prefix each tab label with its positional number, e.g. [1] code"
+platforms = ["linux"]
+
+# Herdr's tab bar renders the tab `label` and nothing else -- there is no
+# config key for showing tab indices (verified against `herdr --default-config`,
+# the published config reference, and the binary's own UiConfig field list).
+# The positional number IS available via the API as `tab list -> .number`, so
+# this plugin keeps it mirrored into the label.
+
+# renumber.sh is idempotent: it renames a tab only when the computed label
+# differs from the current one. That property is what makes hooking
+# `tab.renamed` safe -- the rename this plugin performs converges on the
+# second pass, emitting no further change, so the cycle terminates.
+
+[[events]]
+on = "tab.created"
+command = ["bash", "renumber.sh"]
+
+[[events]]
+on = "tab.closed"
+command = ["bash", "renumber.sh"]
+
+[[events]]
+on = "tab.moved"
+command = ["bash", "renumber.sh"]
+
+[[events]]
+on = "tab.renamed"
+command = ["bash", "renumber.sh"]
+
+# Manual escape hatch:
+#   herdr plugin action invoke local.tab-numbers.renumber
+[[actions]]
+id = "renumber"
+title = "Renumber tabs"
+contexts = ["workspace"]
+command = ["bash", "renumber.sh"]

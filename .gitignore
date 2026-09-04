@@ -1,3 +1,11 @@
 .config/nvim/lazy-lock.json
 .config/opencode/opencode-notifier-state.json
 .agents/skills/
+
+# herdr runtime state -- only config.toml and README.md are tracked.
+# Guards against sockets, logs, session state, and plugin checkouts.
+# Local plugin *source* lives in .config/herdr-plugins/ (outside this dir)
+# because herdr owns .config/herdr/plugins/ for its managed checkouts.
+.config/herdr/*
+!.config/herdr/config.toml
+!.config/herdr/README.md

@@ -161,6 +161,9 @@ alias mux="tmuxinator"
 # tmux/worktree functions
 source ~/.config/zsh/tmux-functions.zsh
 
+# herdr functions
+source ~/.config/zsh/herdr-functions.zsh
+
 # aws
 alias aws-login='aws sso login --sso-session regular-cloud && eval $(aws configure export-credentials --profile regular --format env)'
 alias aws-login-gov='aws sso login --sso-session gov-cloud && eval $(aws configure export-credentials --profile gov --format env)'
