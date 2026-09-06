@@ -9,7 +9,7 @@ export BAT_THEME=base16-256
 export EDITOR=nvim
 
 # path
-export PATH=$PATH:~/bin:~/.local/bin:~/go/bin:~/.asdf/shims:/opt/homebrew/bin:/opt/homebrew/sbin:/Applications/Postgres.app/Contents/Versions/16/bin
+export PATH=$PATH:~/bin:~/.local/bin:~/go/bin:~/.cargo/bin
 ############### end variables ###############
 
 ############### start history ###############
