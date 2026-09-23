@@ -5,5 +5,28 @@
   ],
   "compaction": {
     "auto": false
+  },
+  "mcp": {
+    "atlassian": {
+      "type": "remote",
+      "url": "https://mcp.atlassian.com/v1/mcp",
+      "oauth": {},
+      "timeout": 15000
+    },
+    "datadog": {
+      "type": "remote",
+      "url": "https://mcp.datadoghq.com/api/unstable/mcp-server/mcp",
+      "oauth": {},
+      "timeout": 15000
+    },
+    "grafana": {
+      "type": "remote",
+      "url": "https://mcp.grafana.com/mcp",
+      "oauth": {},
+      "timeout": 15000,
+      "headers": {
+        "X-Grafana-URL": "https://flocksafety.grafana.net"
+      }
+    }
   }
 }
